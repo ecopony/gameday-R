@@ -10,3 +10,11 @@ loadPitchesForYear <- function(year) {
   res <- dbSendQuery(con, query)
   fetch(res, n=-1)
 }
+
+loadHitsForYear <- function(year) {
+  drv <- dbDriver("PostgreSQL")
+  con <- dbConnect(drv, dbname="go-gameday", host="localhost")
+  query <- paste("select * from hits where year =",year, sep="")
+  res <- dbSendQuery(con, query)
+  fetch(res, n=-1)
+}
