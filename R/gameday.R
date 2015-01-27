@@ -2,6 +2,7 @@
 #
 # Starting with some basics to load data from a PostgreSQL database.
 # See https://github.com/ecopony/pggameday getting it filled with data.
+library(hexbin)
 
 loadPitchesForYear <- function(year) {
   drv <- dbDriver("PostgreSQL")
@@ -26,4 +27,11 @@ plotHitsForPlayerAndYear <- function(player, year) {
   lines(c(125, 150, 125, 100, 125), c(-210, -180, -150, -180, -210), col=c("black"))
   points(subset(player.hits$x, player.hits$type=="H"), subset(-player.hits$y, player.hits$type=="H"), pch=10, col=c("red"))
   points(subset(player.hits$x, player.hits$type=="O"), subset(-player.hits$y, player.hits$type=="O"), pch=10, col=c("blue"))
+}
+
+plotHexbinHitsForPlayerAndYear <- function(player, year) {
+  hits <- loadHitsForYear(year)
+  player.hits <- subset(hits, batter == player)
+  player.hexbins <- hexbin(player.hits$x, -player.hits$y)
+  plot(player.hexbins)  
 }
