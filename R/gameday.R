@@ -38,6 +38,6 @@ plotHitsForPlayerAndYear <- function(player, year) {
 plotHexbinHitsForPlayerAndYear <- function(player, year) {
   hits <- loadHitsForYear(year)
   player.hits <- subset(hits, batter == player)
-  d <- ggplot(player.hits, aes(player.hits$x, -player.hits$y))
+  d <- ggplot(data = player.hits, aes(player.hits$x, -player.hits$y), environment=environment())
   d + stat_binhex()
 }
