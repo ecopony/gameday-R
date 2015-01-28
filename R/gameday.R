@@ -9,7 +9,10 @@ loadPitchesForYear <- function(year) {
   con <- dbConnect(drv, dbname="go-gameday", host="localhost")
   query <- paste("select * from pitches where year =",year, sep="")
   res <- dbSendQuery(con, query)
-  fetch(res, n=-1)
+  pitches <- fetch(res, n=-1)
+  dbClearResult(res)
+  dbDisconnect(con)
+  pitches
 }
 
 loadHitsForYear <- function(year) {
@@ -17,7 +20,10 @@ loadHitsForYear <- function(year) {
   con <- dbConnect(drv, dbname="go-gameday", host="localhost")
   query <- paste("select * from hits where year =",year, sep="")
   res <- dbSendQuery(con, query)
-  fetch(res, n=-1)
+  hits <- fetch(res, n=-1)
+  dbClearResult(res)
+  dbDisconnect(con)
+  hits
 }
 
 plotHitsForPlayerAndYear <- function(player, year) {
