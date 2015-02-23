@@ -2,6 +2,7 @@
 #
 # Starting with some basics to load data from a PostgreSQL database.
 # See https://github.com/ecopony/pggameday getting it filled with data.
+library(ggplot2)
 library(hexbin)
 
 loadPitchesForYear <- function(year) {
